@@ -4,8 +4,9 @@ F_CPU = 8000000 # 8 MHz
 #AVRDUDE_PORT = com1	# programmer connected to serial
 AVRDUDE_PORT = /dev/ttyUSB0	# programmer connected to usb serial port
 AVRDUDE_PROGRAMMER = dasa
+AVRDUDE_TIMING = 400
 
-program-digg:
+program-test_sensor:
 
 # Default target.
 all: begin gccversion \
@@ -90,7 +91,7 @@ AVRDUDE = avrdude
 
 AVRDUDE_WRITE_FLASH = -U flash:w:
 
-AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -i 1000
+AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -i $(AVRDUDE_TIMING)
 
 # ---------------------------------------------------------------------------
 
