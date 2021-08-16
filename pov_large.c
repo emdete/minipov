@@ -11,12 +11,12 @@ void delay_ms( uint16_t milliseconds)
    }
 } 
 
+
 #define TIMER1_PRESCALE_1 1
 #define TIMER1_PRESCALE_8 2
 #define TIMER1_PRESCALE_64 3
 #define TIMER1_PRESCALE_256 4
 #define TIMER1_PRESCALE_1024 5
-
 
 // We use these macros because binary constants arent always supported. ugh.
 #define HEX__(n) 0x##n##UL
@@ -30,10 +30,9 @@ void delay_ms( uint16_t milliseconds)
                +((x&0xF0000000LU)?128:0)
 #define B8(d) ((unsigned char)B8__(HEX__(d)))
 
-
 // store all the image data in program memory (ROM)
 // instead of RAM (the default)
-const uint8_t large_image[] PROGMEM = {
+const uint8_t const large_image[] PROGMEM = {
   B8(00000000),
 B8(00000000),
 B8(00000000),
@@ -87,8 +86,6 @@ const uint8_t* const largeimage_p PROGMEM = large_image;
 
 #define NUM_ELEM(x) (sizeof (x) / sizeof (*(x)))
 int imagesize = NUM_ELEM(large_image);
-
-
 
 // this function is called when timer1 compare matches OCR1A
 uint8_t j = 0;

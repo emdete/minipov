@@ -11,6 +11,7 @@ void delay_ms( uint16_t milliseconds)
    }
 } 
 
+
 #define TIMER1_PRESCALE_1 1
 #define TIMER1_PRESCALE_8 2
 #define TIMER1_PRESCALE_64 3
@@ -31,7 +32,7 @@ void delay_ms( uint16_t milliseconds)
 
 // store all the image data in program memory (ROM)
 // instead of RAM (the default)
-const uint8_t large_image[] PROGMEM = {
+const uint8_t const large_image[] PROGMEM = {
   B8(11111111),
   B8(11011011),
   B8(11011011),
@@ -93,7 +94,6 @@ const uint8_t* const largeimage_p PROGMEM = large_image;
 
 #define NUM_ELEM(x) (sizeof (x) / sizeof (*(x)))
 int imagesize = NUM_ELEM(large_image);
-
 
 // this function is called when timer1 compare matches OCR1A
 uint8_t j = 0;
