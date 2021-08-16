@@ -36,5 +36,5 @@ int main(int argc, char *argv[]) {
 		}
 		print_letter(' ');
 	}
-	printf("}\n");
+	printf("};\n");
 }
