@@ -22,10 +22,11 @@ Mods
 --
 
 The nice thing about the device is the fact that you can program the CPU with
-just a RS232 provided by older PCs out of the box or with an USB converter. You
-just need 3 diods, 3 resitors and a DB9 plug to make that work (be aware that
-this doesnt really use the serial capabilities of the RS232 but pules the
-information over the status lines of the interface, a method called bitbanging).
+just a RS232 provided by older PCs out of the box or with an USB converter. It
+utilises just 3 diods, 3 resitors and a DB9 plug to make that work (be aware
+that this doesnt really use the serial capabilities of the RS232 but pules the
+information over the status lines of the interface, a method called
+bitbanging).
 
 ![Diagram](adafruit_products_minipov3schem.png)
 
