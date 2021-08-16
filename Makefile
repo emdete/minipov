@@ -8,8 +8,6 @@ AVRDUDE_PORT = /dev/ttyUSB0 # programmer connected to usb serial port
 AVRDUDE_PROGRAMMER = dasa
 AVRDUDE_TIMING = 400
 
-program-ani_sensor_pong:
-
 # Default target.
 all: begin gccversion $(HEX) finished end
 
@@ -29,6 +27,12 @@ program-pov_make: pov_make.hex
 program-pov_minipov: pov_minipov.hex
 program-test_serial: test_serial.hex
 program-ani_sensor_pong: ani_sensor_pong.hex
+
+gen: gen_pov
+	./gen_pov Hello World | tee /tmp/gen.h
+
+gen_pov: gen_pov.c
+	gcc -o $@ $<
 
 # this is necessary if you're burning the AVR for the first time...
 # sets the proper fuse for 8MHz internal oscillator with no clk div
