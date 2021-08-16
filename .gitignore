@@ -1,4 +1,5 @@
 .*.sw?
+*.map
 *.hex
 *.lst
 *.elf
