@@ -1,36 +1,31 @@
+SRC=$(wildcard *.c)
+HEX = $(SRC:.c=.hex)
 MCU = attiny2313
 F_CPU = 8000000 # 8 MHz
-#AVRDUDE_PORT = lpt1	# programmer connected to windows parallel
-#AVRDUDE_PORT = com1	# programmer connected to serial
-AVRDUDE_PORT = /dev/ttyUSB0	# programmer connected to usb serial port
+#AVRDUDE_PORT = lpt1 # programmer connected to windows parallel
+#AVRDUDE_PORT = com1 # programmer connected to serial
+AVRDUDE_PORT = /dev/ttyUSB0 # programmer connected to usb serial port
 AVRDUDE_PROGRAMMER = dasa
 AVRDUDE_TIMING = 400
 
-program-alt_leds:
-
 # Default target.
-all: begin gccversion \
-	minipov.hex all_leds.hex alt_leds.hex mypov.hex test_leds.hex \
-	largeimage.hex makefair.hex makezine.hex eyebeam.hex digg.hex make.hex \
-	ledcube.hex ledcubetest.hex minuscube.hex \
-	finished end
+all: begin gccversion $(HEX) finished end
 
 # Program the device w/various programs
-program-minipov: minipov.hex
-program-all_leds: all_leds.hex
-program-test_leds: test_leds.hex
-program-alt_leds: alt_leds.hex
-program-mypov: mypov.hex
-program-test_sensor: test_sensor.hex
-program-largeimage: largeimage.hex
-program-makefair: makefair.hex
-program-ledcube: ledcube.hex
-program-ledcubetest: ledcubetest.hex
-program-makezine: makezine.hex
-program-eyebeam: eyebeam.hex
-program-make: make.hex
-program-digg: digg.hex
-program-minuscube: minuscube.hex
+program-ani_all: ani_all.hex
+program-ani_alt: ani_alt.hex
+program-ani_ledtest: ani_ledtest.hex
+program-ani_sensor_test: ani_sensor_test.hex
+program-cube_image: cube_image.hex
+program-cube_test: cube_test.hex
+program-pov__: pov__.hex
+program-pov_digg: pov_digg.hex
+program-pov_eyebeam: pov_eyebeam.hex
+program-pov_i_love_make: pov_i_love_make.hex
+program-pov_large: pov_large.hex
+program-pov_make: pov_make.hex
+program-pov_minipov: pov_minipov.hex
+program-test_serial: test_serial.hex
 
 # this is necessary if you're burning the AVR for the first time...
 # sets the proper fuse for 8MHz internal oscillator with no clk div
@@ -42,9 +37,9 @@ program-%:
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH)$<
 
 
-FORMAT = ihex 		# create a .hex file
+FORMAT = ihex # create a .hex file
 
-OPT = s			# assembly-level optimization
+OPT = s # assembly-level optimization
 
 # Optional compiler flags.
 #  -g:        generate debugging information (for GDB, or for COFF conversion)
@@ -52,14 +47,14 @@ OPT = s			# assembly-level optimization
 #  -f...:     tuning, see gcc manual and avr-libc documentation
 #  -Wall...:  warning level
 #  -Wa,...:   tell GCC to pass this to the assembler.
-#    -ahlms:  create assembler listing
+#  -ahlms:    create assembler listing
 CFLAGS = -g -O$(OPT) \
--funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
--Wall -Wstrict-prototypes \
--DF_CPU=$(F_CPU) \
--Wa,-adhlns=$(<:.c=.lst) \
-$(patsubst %,-I%,$(EXTRAINCDIRS)) \
--mmcu=$(MCU)
+	-funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums \
+	-Wall -Wstrict-prototypes \
+	-DF_CPU=$(F_CPU) \
+	-Wa,-adhlns=$(<:.c=.lst) \
+	$(patsubst %,-I%,$(EXTRAINCDIRS)) \
+	-mmcu=$(MCU)
 
 
 # Set a "language standard" compiler flag.
@@ -73,13 +68,13 @@ CFLAGS += -std=gnu99
 #             for use in COFF files, additional information about filenames
 #             and function names needs to be present in the assembler source
 #             files -- see avr-libc docs [FIXME: not yet described there]
-ASFLAGS = -Wa,-adhlns=$(<:.S=.lst),-gstabs 
+ASFLAGS = -Wa,-adhlns=$(<:.S=.lst),-gstabs
 
 
 # Optional linker flags.
 #  -Wl,...:   tell GCC to pass this to linker.
 #  -Map:      create map file
-#  --cref:    add cross reference to  map file
+#  --cref:    add cross reference to map file
 LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 
 
@@ -120,7 +115,7 @@ COPY = cp
 MSG_ERRORS_NONE = Errors: none
 MSG_BEGIN = -------- begin --------
 MSG_END = --------  end  --------
-MSG_SIZE_BEFORE = Size before: 
+MSG_SIZE_BEFORE = Size before:
 MSG_SIZE_AFTER = Size after:
 MSG_FLASH = Creating load file for Flash:
 MSG_EXTENDED_LISTING = Creating Extended Listing:
@@ -132,7 +127,7 @@ MSG_CLEANING = Cleaning project:
 
 
 # Define all object files.
-OBJ = $(SRC:.c=.o) $(ASRC:.S=.o) 
+OBJ = $(SRC:.c=.o) $(ASRC:.S=.o)
 
 # Define all listing files.
 LST = $(ASRC:.S=.lst) $(SRC:.c=.lst)
@@ -162,7 +157,7 @@ end:
 
 
 # Display compiler version information.
-gccversion : 
+gccversion:
 	@$(CC) --version
 
 
@@ -173,8 +168,8 @@ gccversion :
 	$(OBJCOPY) -O $(FORMAT) -R .eeprom $< $@
 
 # Link: create ELF output file from object files.
-.SECONDARY : $(TARGET).elf
-.PRECIOUS : $(OBJ)
+.SECONDARY: $(TARGET).elf
+.PRECIOUS: $(OBJ)
 %.elf: %.o
 	@echo
 	@echo $(MSG_LINKING) $@
@@ -182,19 +177,19 @@ gccversion :
 
 
 # Compile: create object files from C source files.
-%.o : %.c
+%.o: %.c
 	@echo
 	@echo $(MSG_COMPILING) $<
 	$(CC) -c $(ALL_CFLAGS) $< -o $@
 
 
 # Compile: create assembler files from C source files.
-%.s : %.c
+%.s: %.c
 	$(CC) -S $(ALL_CFLAGS) $< -o $@
 
 
 # Assemble: create object files from assembler source files.
-%.o : %.S
+%.o: %.S
 	@echo
 	@echo $(MSG_ASSEMBLING) $<
 	$(CC) -c $(ALL_ASFLAGS) $< -o $@
@@ -206,7 +201,7 @@ gccversion :
 # Target: clean project.
 clean: begin clean_list finished end
 
-clean_list :
+clean_list:
 	@echo
 	@echo $(MSG_CLEANING)
 	$(REMOVE) *.hex
@@ -216,5 +211,5 @@ clean_list :
 	$(REMOVE) *.o
 
 # Listing of phony targets.
-.PHONY : all begin finish end \
+.PHONY: all begin finish end \
 	clean clean_list program
