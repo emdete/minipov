@@ -8,6 +8,8 @@ AVRDUDE_PORT = /dev/ttyUSB0 # programmer connected to usb serial port
 AVRDUDE_PROGRAMMER = dasa
 AVRDUDE_TIMING = 400
 
+program-ani_sensor_test: 
+
 # Default target.
 all: begin gccversion $(HEX) finished end
 
