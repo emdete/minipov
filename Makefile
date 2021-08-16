@@ -6,7 +6,7 @@ AVRDUDE_PORT = /dev/ttyUSB0	# programmer connected to usb serial port
 AVRDUDE_PROGRAMMER = dasa
 AVRDUDE_TIMING = 400
 
-program-test_sensor:
+program-alt_leds:
 
 # Default target.
 all: begin gccversion \
