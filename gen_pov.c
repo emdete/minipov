@@ -1,9 +1,10 @@
+#include <stdio.h>
 #define PROGMEM
 #include "font_5x8.h"
-#include <stdio.h>
+#include "font_sysv.h"
 
 void print_letter(unsigned char out) {
-	printf("// %c\n", out);
+	printf("\t// '%c':\n", out);
 	const unsigned char* p = font + (
 		(out>='0'&&out<='9')?(out-'0'):
 		(out>='A'&&out<='Z')?(out-'A'+10):
@@ -13,6 +14,7 @@ void print_letter(unsigned char out) {
 	int j;
 	for (j=0;j<5;j++) {
 		int i;
+		putchar('\t');
 		putchar('0');
 		putchar('b');
 		for (i=0;i<8;i++) {
@@ -22,7 +24,7 @@ void print_letter(unsigned char out) {
 		putchar('\n');
 		p++;
 	}
-	printf("0b00000000,\n");
+	printf("\t0b00000000,\n");
 }
 
 int main(int argc, char *argv[]) {
