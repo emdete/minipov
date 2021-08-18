@@ -8,12 +8,6 @@ AVRDUDE_PORT = /dev/ttyUSB0 # programmer connected to usb serial port
 AVRDUDE_PROGRAMMER = dasa
 AVRDUDE_TIMING = 400
 
-x: pivot
-	./pivot | tee pivot.h
-
-pivot: pivot.c
-	gcc -o $@ $<
-
 program-pov__:
 
 # Default target.
