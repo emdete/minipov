@@ -1,38 +1,21 @@
-#include <avr/io.h>      // this contains all the IO port definitions
-
-
-// This function basically wastes time
-void delay_ms(long int ms) {
-  unsigned long int timer;
-
-  while (ms != 0) {
-    // this number is dependant on the clock frequency
-    for (timer=0; timer <= 4200; timer++);
-    ms--;
-  }
-}
+#include <avr/io.h> // this contains all the IO port definitions
+#include <util/delay.h> // this contains _delay_ms definition
 
 int main(void) {
-
-  DDRB = 0xFF;        // set port B to output only
-
-  PORTB = 0; // turn off all LEDs
-  while (1) {
-    PORTB = 0x1;      // turn on only LED #1
-    delay_ms(200);
-    PORTB = 0x2;      // turn on only LED #2
-    delay_ms(200);
-    PORTB = 0x4;      // etc..
-    delay_ms(200);
-    PORTB = 0x8;
-    delay_ms(200);
-    PORTB = 0x10; 
-    delay_ms(200);
-    PORTB = 0x20; 
-    delay_ms(200);
-    PORTB = 0x40; 
-    delay_ms(200);
-    PORTB = 0x80;    // turn on LED #8
-    delay_ms(200);
-  }
+	unsigned int state = 1;
+	unsigned int delay = 100;
+	DDRB = 0xFF; // set port B to output only
+	PORTB = state; // turn off all LEDs but the first
+	while (1) { // forever
+		while (state != 0x80) { // animate up
+			state <<= 1;
+			PORTB = state;
+			_delay_ms(delay);
+		}
+		while (state != 0x01) { // animate down
+			state >>= 1;
+			PORTB = state;
+			_delay_ms(delay);
+		}
+	}
 }

@@ -891,3 +891,5 @@ const unsigned char font_sysv[][8] = {{
 0
 }};
 
+void print_letter_sysv(unsigned char out) {
+}

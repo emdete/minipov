@@ -29,6 +29,7 @@ program-pov_make: pov_make.hex
 program-pov_minipov: pov_minipov.hex
 program-test_serial: test_serial.hex
 program-ani_sensor_pong: ani_sensor_pong.hex
+program-test: test.hex
 
 gen: gen_pov
 	./gen_pov Wohnblume | tee gen.h
