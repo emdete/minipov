@@ -27,11 +27,11 @@ with no success.
 Finally we used a reed contact and a small magnet in a tube.
 This works incredible fine. Sampleprograms are in `pov_sensor*.c`.
 
-![IMG](raw/branch/master/IMG_20210905_221634.sized.jpg)
+![IMG](IMG_20210905_221634.sized.jpg)
 
-The code in `pov_sensor_num.c) displays the cycles for one wave:
+The code in `pov_sensor_num.c` displays the cycles for one wave:
 
-![IMG](raw/branch/master/pov_sen_num.jpg)
+![IMG](pov_sen_num.jpg)
 
 ### Linear Animations
 
