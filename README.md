@@ -4,7 +4,8 @@ This is everything i found around minipov. It seems
 [ladyada](http://ladyada.net/make/minipov3/index.html) created this wonderful
 peace of hardware.
 
-Fine instructions can be found at [instructables](https://www.instructables.com/MiniPOV3-Kit/).
+Fine instructions can be found at
+[instructables](https://www.instructables.com/MiniPOV3-Kit/).
 
 ## Base
 
@@ -21,7 +22,9 @@ To generate an textline the programm `gen_pov.c` is provided.
 
 To know when to start the writing the minipov utilizes a sensor port. We
 experimented alot with different switches and weights to trigger the switch
-with no success. Finally we used a reed relais and a small magnet in a tube.
+with no success.
+
+Finally we used a reed contact and a small magnet in a tube.
 This works incredible fine. Sampleprograms are in `pov_sensor*.c`.
 
 ### Linear Animations
