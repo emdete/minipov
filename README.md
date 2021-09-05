@@ -15,6 +15,8 @@ Base information can be found on the original wiki at
 
 All code using the original function of the minipov are named `pov*.c`.
 
+To generate an textline the programm `gen_pov.c` is provided.
+
 ### POV with sensor
 
 To know when to start the writing the minipov utilizes a sensor port. We

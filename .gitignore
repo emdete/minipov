@@ -4,3 +4,4 @@
 *.lst
 *.elf
 *.o
+gen_pov
