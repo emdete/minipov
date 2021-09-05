@@ -8,7 +8,7 @@ AVRDUDE_PORT = /dev/ttyUSB0 # programmer connected to usb serial port
 AVRDUDE_PROGRAMMER = dasa
 AVRDUDE_TIMING = 400
 
-program-pov__:
+program-pov_sensor_num:
 
 # Default target.
 all: begin gccversion $(HEX) finished end
@@ -29,9 +29,11 @@ program-pov_make: pov_make.hex
 program-pov_minipov: pov_minipov.hex
 program-test_serial: test_serial.hex
 program-ani_sensor_pong: ani_sensor_pong.hex
+program-pov_sensor: pov_sensor.hex
+program-pov_sensor_num: pov_sensor_num.hex
 program-test: test.hex
 
-gen: gen_pov
+gen.h: gen_pov
 	./gen_pov Wohnblume | tee gen.h
 
 gen_pov: gen_pov.c

@@ -1,5 +1,4 @@
-minipov3
-==
+# minipov3
 
 This is everything i found around minipov. It seems
 [ladyada](http://ladyada.net/make/minipov3/index.html) created this wonderful
@@ -7,19 +6,30 @@ peace of hardware.
 
 Fine instructions can be found at [instructables](https://www.instructables.com/MiniPOV3-Kit/).
 
-Base
---
+## Base
 
-Base information can be found on the original wiki at [adafruit](https://learn.adafruit.com/minipov3).
+Base information can be found on the original wiki at
+[adafruit](https://learn.adafruit.com/minipov3).
 
-All code using the original function of the minipov are named `pov_*.c`.
+### POV
 
-You can use the device for just linear LED animations as well. This is not only nice for testing.
+All code using the original function of the minipov are named `pov*.c`.
+
+### POV with sensor
+
+To know when to start the writing the minipov utilizes a sensor port. We
+experimented alot with different switches and weights to trigger the switch
+with no success. Finally we used a reed relais and a small magnet in a tube.
+This works incredible fine. Sampleprograms are in `pov_sensor*.c`.
+
+### Linear Animations
+
+You can use the device for just linear LED animations as well. This is not only
+nice for testing.
 
 All code providing such animations of the minipov are named `ani_*.c`.
 
-Mods
---
+## Mods
 
 The nice thing about the device is the fact that you can program the CPU with
 just a RS232 provided by older PCs out of the box or with an USB converter. It
@@ -49,7 +59,8 @@ Troubleshooting
 
 ### Bitbanging
 
-It seems the Bitbanging timing depends on the speed of the host computer. If you encounter this message:
+It seems the Bitbanging timing depends on the speed of the host computer. If
+you encounter this message:
 
 ```
 avrdude: AVR device not responding
