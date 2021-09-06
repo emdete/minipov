@@ -1,11 +1,11 @@
 # minipov3
 
 This is everything i found around minipov. It seems
-[ladyada](http://ladyada.net/make/minipov3/index.html) created this wonderful
+[Lady Ada](http://ladyada.net/make/minipov3/index.html) created this wonderful
 peace of hardware.
 
 Fine instructions can be found at
-[instructables](https://www.instructables.com/MiniPOV3-Kit/).
+[Instructables](https://www.instructables.com/MiniPOV3-Kit/).
 
 ## Base
 
@@ -59,14 +59,18 @@ developed alot of mods on minipov3.
 
 I bought the minipov3 with a kit for the
 [LEDcube](http://cornfieldelectronics.com/cfe/projects/ledcube/LEDcube_instructions.php)
-which i wasn able to finish yet.
+from [Mitch](mitch@CornfieldElectronics.com) which i wasnt able to finish yet.
 
 All code using the LEDCube function of the minipov are named `cube_*.c`.
 
 ### RGBLight
 
-Troubleshooting
---
+[Mitch](mitch@CornfieldElectronics.com) from
+[Cornfield Electronics](http://cornfieldelectronics.com/cfe/projects.php)
+(scroll down to "**Project: Make your own Trippy RGB Light **") had another mod
+called RGBLight.
+
+## Troubleshooting
 
 ### Bitbanging
 
