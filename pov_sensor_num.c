@@ -9,18 +9,6 @@
 #define TIMER1_PRESCALE_256 4
 #define TIMER1_PRESCALE_1024 5
 
-// We use these macros because binary constants arent always supported. ugh.
-#define HEX__(n) 0x##n##UL
-#define B8__(x) ((x&0x0000000FLU)?1:0)  \
-	+((x&0x000000F0LU)?2:0)  \
-	+((x&0x00000F00LU)?4:0)  \
-	+((x&0x0000F000LU)?8:0)  \
-	+((x&0x000F0000LU)?16:0) \
-	+((x&0x00F00000LU)?32:0) \
-	+((x&0x0F000000LU)?64:0) \
-	+((x&0xF0000000LU)?128:0)
-#define B8(d) ((unsigned char)B8__(HEX__(d)))
-
 // store all the image data in program memory (ROM)
 // instead of RAM (the default)
 static const uint8_t const large_image[] PROGMEM = {
@@ -106,9 +94,8 @@ static const uint8_t const large_image[] PROGMEM = {
 // special pointer for reading from ROM memory
 static const uint8_t* const large_image_p PROGMEM = large_image;
 
-#define NUM_ELEM(x) (sizeof (x) / sizeof (*(x)))
-#define imagesize NUM_ELEM(large_image)
-#define charsize 6
+#define charsize 6 // number of rows of a char in the font
+#define imagesize 5 // number of digits we want to print
 
 static volatile uint8_t imageindex = imagesize;
 static volatile uint16_t number;
