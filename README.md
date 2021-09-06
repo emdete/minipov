@@ -12,6 +12,8 @@ Fine instructions can be found at
 Base information can be found on the original wiki at
 [adafruit](https://learn.adafruit.com/minipov3).
 
+![Diagram](adafruit_products_minipov3schem.png)
+
 ### POV
 
 All code using the original function of the minipov are named `pov*.c`.
@@ -48,8 +50,6 @@ utilises just 3 diods, 3 resitors and a DB9 plug to make that work (be aware
 that this doesnt really use the serial capabilities of the RS232 but pulls the
 information over the status lines of the interface, a method called
 bitbanging).
-
-![Diagram](adafruit_products_minipov3schem.png)
 
 Mitch Altman from
 [cornfieldelectronics](http://cornfieldelectronics.com/cfe/projects.php)
