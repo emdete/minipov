@@ -27,7 +27,16 @@
 # TCCR1B = (1 << WGM12) | TIMER1_PRESCALE_1;
 # OCR1A = (uint16_t)10000;
 
-prescaler = 1
-overflow_val = 10000
-clock_frequency = 8 * 10**6
-print('freq', clock_frequency / ( 2 * prescaler * overflow_val))
+clock_frequency = 8 * 10**6 # CPU clock
+prescaler = 1 # scale
+
+overflow_val = 10000 # value in the samples
+freq = clock_frequency / ( 2 * prescaler * overflow_val)
+print('freq', freq)
+
+# other way around
+prescaler = 8
+freq = 600
+overflow_val = clock_frequency / ( 2 * prescaler * freq)
+print('overflow_val', int(overflow_val))
+
