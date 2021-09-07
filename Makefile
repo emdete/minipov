@@ -1,6 +1,6 @@
 #!/usr/bin/env make -f
 # https://www.gnu.org/software/make/manual/html_node/Special-Targets.html
-.PHONY: all begin finish end clean clean_list program
+.PHONY: all clean
 
 TARGET=pov_sensor_num
 MCU = attiny2313
@@ -17,10 +17,12 @@ OBJ = $(SRC:.c=.o) $(ASRC:.S=.o)
 LST = $(ASRC:.S=.lst) $(SRC:.c=.lst)
 
 # Default target.
-all: program-$(TARGET)
+all: program-$(TARGET) eeprom-$(TARGET)
 
 # Program the device w/various programs
 program-$(TARGET): $(TARGET).hex
+
+eeprom-$(TARGET): $(TARGET).eep
 
 gen.h: gen_pov
 	./gen_pov $(TEXT) | tee gen.h
@@ -37,6 +39,8 @@ burn-fuse:
 program-%:
 	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH)$<
 
+eeprom-%:
+	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_EEPROM)$<
 
 FORMAT = ihex # create a .hex file
 
@@ -80,6 +84,7 @@ AVRDUDE = avrdude
 
 # Programming support using avrdude. Settings and variables.
 AVRDUDE_WRITE_FLASH = -U flash:w:
+AVRDUDE_WRITE_EEPROM = -U eeprom:w:
 AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -i $(AVRDUDE_TIMING)
 
 # Define programs and commands.
@@ -88,7 +93,6 @@ OBJCOPY = avr-objcopy
 OBJDUMP = avr-objdump
 SIZE = avr-size
 REMOVE = rm -f
-COPY = cp
 
 # Combine all necessary flags and optional flags.
 # Add target processor to flags.
@@ -102,6 +106,10 @@ gccversion:
 # Create final output files (.hex) from ELF output file.
 %.hex: %.elf
 	$(OBJCOPY) -O $(FORMAT) -R .eeprom $< $@
+
+#
+%.eep: %.elf
+	$(OBJCOPY) --only-section=.eeprom --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0 --output-target=ihex $< $@
 
 %.elf: %.o
 	$(CC) $(ALL_CFLAGS) $< --output $@ $(LDFLAGS)
@@ -119,15 +127,8 @@ gccversion:
 	$(CC) -c $(ALL_ASFLAGS) $< -o $@
 
 # Target: clean project.
-clean: begin clean_list finished end
-
-clean_list:
-	$(REMOVE) *.hex
-	$(REMOVE) *.lst
-	$(REMOVE) *.obj
-	$(REMOVE) *.elf
-	$(REMOVE) *.o
-	$(REMOVE) *.map
+clean:
+	$(REMOVE) *.hex *.lst *.obj *.elf *.o *.map *.eep
 
 dbg:
 	$(foreach remote,$(shell git remote),$(shell git push $(remote)))
