@@ -95,7 +95,11 @@ static const uint8_t const large_image[] PROGMEM = {
 #define charsize 6 // number of rows of a char in the font
 #define imagesize 7*charsize // number of digits we want to print
 
-uint16_t EEMEM counter_calc = 0xaabb;
+uint16_t EEMEM ee_down_count = 20000;
+uint8_t EEMEM ee_delay = 5;
+uint8_t EEMEM ee_bounce = 6;
+uint8_t EEMEM ee_text[100] = "12345";
+uint8_t EEMEM ee_wait = 1;
 static volatile uint8_t imageindex = imagesize;
 static volatile uint16_t number;
 
@@ -123,49 +127,66 @@ SIGNAL( TIMER1_COMPA_vect ) {
 }
 
 int main(void) {
-	uint16_t no = 0;
+	uint16_t no = 0; // number of waits counter
+	//uint8_t delay = eeprom_read_byte(&ee_delay);
+#	define delay 5 // wait delay
+	uint8_t bounce = 6;//eeprom_read_byte(&ee_bounce);
+	uint8_t wait = 1;//eeprom_read_byte(&ee_wait);
 
+	// setup LED line
 	DDRB = 0xFF; // set all 8 pins on port B to outputs
 	PORTB = 0; // set all pins off
 
+	// setup sensor
 	DDRD = 0xFB; // one input on pin D2
 	PORTD = 0x04; // turn on pullup on pin D2
 
-	TCCR1B = (1 << WGM12) | TIMER1_PRESCALE_1;
-	OCR1A = (uint16_t)20000;
+	// program timer interrupt
+	TCCR1B = (1 << WGM12) | TIMER1_PRESCALE_1; // prescale of 1
+	OCR1A = 10000; //eeprom_read_word(&ee_down_count); // interrupt counter
 	TIMSK |= 1 << OCIE1A; // Output Compare Interrupt Enable (timer 1, OCR1A)
 	sei(); // Set Enable Interrupts
 
+	// loop forever
 	while (1) {
+		// reset number of waits
 		no = 0;
-#		define DELAY 5
-#	if 1 // use debounce?
-#		define BOUNCE 6
-		int bounce_counter = BOUNCE;
-		while (bounce_counter > BOUNCE / 3) {
+		// wait for pressed
+		uint8_t bounce_counter = bounce;
+		while (bounce_counter > bounce / 3) {
 			if (PIND & 0x4) {
-				if (bounce_counter < BOUNCE)
+				if (bounce_counter < bounce)
 					bounce_counter++;
 			}
 			else {
 				if (bounce_counter > 0)
 					bounce_counter--;
 			}
-#	else
-		while (PIND & 0x4) { //}
-#	endif
-			_delay_ms(DELAY);
+			_delay_ms(delay);
 			no++;
 		}
-		_delay_ms(DELAY);
-		no++;
-		while (!(PIND & 0x4)) {
-			_delay_ms(DELAY);
+		// wait for not pressed
+		bounce_counter = bounce;
+		while (bounce_counter > bounce / 3) {
+			if (!(PIND & 0x4)) {
+				if (bounce_counter < bounce)
+					bounce_counter++;
+			}
+			else {
+				if (bounce_counter > 0)
+					bounce_counter--;
+			}
+			_delay_ms(delay);
 			no++;
 		}
-		_delay_ms(100);
-		//number = no;
-		number = eeprom_read_word(&counter_calc);
+		// add additional wait
+		for (bounce_counter=0;bounce_counter<wait;bounce_counter++) {
+			_delay_ms(delay);
+			no++;
+		}
+		// set number
+		number = no;
+		// output image
 		imageindex = 0;
 	}
 }

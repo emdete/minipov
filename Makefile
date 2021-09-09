@@ -17,7 +17,7 @@ OBJ = $(SRC:.c=.o) $(ASRC:.S=.o)
 LST = $(ASRC:.S=.lst) $(SRC:.c=.lst)
 
 # Default target.
-all: program-$(TARGET) eeprom-$(TARGET)
+all: eeprom-$(TARGET) program-$(TARGET)
 
 # Program the device w/various programs
 program-$(TARGET): $(TARGET).hex
