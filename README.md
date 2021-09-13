@@ -1,6 +1,6 @@
-# minipov3
+# Persistence of Vision
 
-This is everything i found around minipov. It seems
+This is everything i found around minipov3. It seems
 [Lady Ada](http://ladyada.net/make/minipov3/index.html) created this wonderful
 peace of hardware.
 
@@ -25,7 +25,7 @@ bitbanging).
 
 [pov](pov/)
 
-### Linear Animations
+### Animation
 
 [animation](animation/)
 
@@ -45,13 +45,13 @@ I bought the minipov3 with a kit for the
 [LEDcube](http://cornfieldelectronics.com/cfe/projects/ledcube/LEDcube_instructions.php)
 from [Mitch](mitch@CornfieldElectronics.com) which i wasnt able to finish yet.
 
-All code using the LEDCube function of the minipov are named `cube/*.c`.
+All code using the LEDCube function of the minipov3 are named `cube/*.c`.
 
 ### RGBLight
 
 [Mitch](mitch@CornfieldElectronics.com) from
 [Cornfield Electronics](http://cornfieldelectronics.com/cfe/projects.php)
-(scroll down to "**Project: Make your own Trippy RGB Light **") had another mod
+(scroll down to **"Project: Make your own Trippy RGB Light"**) had another mod
 called RGBLight.
 
 ## Troubleshooting
