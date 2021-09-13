@@ -45,11 +45,7 @@ developed alot of mods on minipov3.
 
 ### LEDcube
 
-I bought the minipov3 with a kit for the
-[LEDcube](http://cornfieldelectronics.com/cfe/projects/ledcube/LEDcube_instructions.php)
-from [Mitch](mitch@CornfieldElectronics.com) which i wasnt able to finish yet.
-
-All code using the LEDCube function of the minipov3 are named `cube/*.c`.
+[cube](cube/)
 
 ### RGBLight
 
