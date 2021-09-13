@@ -3,5 +3,6 @@
 *.hex
 *.lst
 *.elf
+*.eep
 *.o
 gen_pov

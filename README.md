@@ -12,7 +12,7 @@ Fine instructions can be found at
 Base information can be found on the original wiki at
 [adafruit](https://learn.adafruit.com/minipov3).
 
-![Diagram](adafruit_products_minipov3schem.png)
+![Diagram](media/adafruit_products_minipov3schem.png)
 
 The nice thing about the device is the fact that you can program the CPU with
 just a RS232 provided by older PCs out of the box or with an USB converter. It
@@ -36,11 +36,11 @@ with no success.
 Finally we used a reed contact and a small magnet in a tube.
 This works incredible fine. Sampleprograms are in `pov_sensor*.c`.
 
-![IMG](IMG_20210905_221634.sized.jpg)
+![IMG](media/IMG_20210905_221634.sized.jpg)
 
 The code in `pov_sensor_num.c` displays the cycles for one wave:
 
-![IMG](pov_sen_num.jpg)
+![IMG](media/pov_sen_num.jpg)
 
 ### Linear Animations
 
