@@ -23,7 +23,7 @@ bitbanging).
 
 ### POV
 
-All code using the original function of the minipov are named `pov*.c`.
+All code using the original function of the minipov are named `pov/pov*.c`.
 
 To generate an textline the programm `gen_pov.c` is provided.
 
@@ -34,20 +34,16 @@ experimented alot with different switches and weights to trigger the switch
 with no success.
 
 Finally we used a reed contact and a small magnet in a tube.
-This works incredible fine. Sampleprograms are in `pov_sensor*.c`.
+This works incredible fine. Sampleprograms are in `pov/pov_sensor*.c`.
 
-![IMG](media/IMG_20210905_221634.sized.jpg)
-
-The code in `pov_sensor_num.c` displays the cycles for one wave:
-
-![IMG](media/pov_sen_num.jpg)
+![IMG](media/2021-09-05-22-16-34-0007.sized.jpg)
 
 ### Linear Animations
 
 You can use the device for just linear LED animations as well. This is not only
 nice for testing.
 
-All code providing such animations of the minipov are named `ani_*.c`.
+All code providing such animations of the minipov are named `animation/*.c`.
 
 ## Mods
 
@@ -61,7 +57,7 @@ I bought the minipov3 with a kit for the
 [LEDcube](http://cornfieldelectronics.com/cfe/projects/ledcube/LEDcube_instructions.php)
 from [Mitch](mitch@CornfieldElectronics.com) which i wasnt able to finish yet.
 
-All code using the LEDCube function of the minipov are named `cube_*.c`.
+All code using the LEDCube function of the minipov are named `cube/*.c`.
 
 ### RGBLight
 

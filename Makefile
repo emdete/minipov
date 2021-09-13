@@ -1,5 +1,5 @@
 #!/usr/bin/env make -f
-.PHONY: all clean
+.PHONY: all dbg clean
 
 all: text.h
 
