@@ -1,5 +1,6 @@
 #!/usr/bin/env make -f
 .PHONY: all dbg clean
+TEXT="FREE SOFTWARE"
 
 all: text.h
 
@@ -14,6 +15,6 @@ text.h: gen_pov
 	./gen_pov $(TEXT) | tee text.h
 
 # compile generator
-gen_pov: gen_pov.c
+gen_pov: gen_pov.c Makefile
 	gcc -o $@ $<
 
