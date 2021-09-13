@@ -9,34 +9,20 @@
 #define TIMER1_PRESCALE_256 4
 #define TIMER1_PRESCALE_1024 5
 
-// We use these macros because binary constants arent always supported. ugh.
-#define HEX__(n) 0x##n##UL
-#define B8__(x) ((x&0x0000000FLU)?1:0)  \
-	+((x&0x000000F0LU)?2:0)  \
-	+((x&0x00000F00LU)?4:0)  \
-	+((x&0x0000F000LU)?8:0)  \
-	+((x&0x000F0000LU)?16:0) \
-	+((x&0x00F00000LU)?32:0) \
-	+((x&0x0F000000LU)?64:0) \
-	+((x&0xF0000000LU)?128:0)
-#define B8(d) ((unsigned char)B8__(HEX__(d)))
-
 // store all the image data in program memory (ROM)
 // instead of RAM (the default)
-#include "gen.h"
-
-// special pointer for reading from ROM memory
-const uint8_t* const largeimage_p PROGMEM = large_image;
+#include "../text.h"
 
 #define NUM_ELEM(x) (sizeof (x) / sizeof (*(x)))
 #define imagesize NUM_ELEM(large_image)
 
 uint8_t imageindex = imagesize;
+
 // this function is called when timer1 compare matches OCR1A
 SIGNAL( TIMER1_COMPA_vect ) {
 	if (imageindex < imagesize) {
 		// read the image data from ROM
-		PORTB = pgm_read_byte(largeimage_p + imageindex);
+		PORTB = pgm_read_byte(large_image + imageindex);
 		imageindex++;
 	}
 	else {
@@ -45,6 +31,12 @@ SIGNAL( TIMER1_COMPA_vect ) {
 }
 
 int main(void) {
+// wait delay
+#	define delay 5
+// number of bounces ignored
+#	define bounce 5
+// additional wait before starte
+#	define wait 3
 
 	DDRB = 0xFF; // set all 8 pins on port B to outputs
 	PORTB = 0; // set all pins off
@@ -76,26 +68,39 @@ int main(void) {
 
 	sei(); // Set Enable Interrupts
 
+	// loop forever
 	while (1) {
-#	if 0 // use debounce?
-#		define BOUNCE 4
-		int bounce_counter = BOUNCE;
-		while (bounce_counter > BOUNCE/2) {
+		// wait for pressed
+		uint8_t bounce_counter = bounce;
+		while (bounce_counter > 0) {
 			if (PIND & 0x4) {
-				if (bounce_counter<BOUNCE) bounce_counter++;
+				if (bounce_counter < bounce)
+					bounce_counter++;
 			}
 			else {
-				if (bounce_counter>0) bounce_counter--;
+				if (bounce_counter > 0)
+					bounce_counter--;
 			}
-#	else
-		while (PIND & 0x4) {
-#	endif
-			_delay_ms(10);
+			_delay_ms(delay);
 		}
-		_delay_ms(10);
-		while (!(PIND & 0x4))
-			_delay_ms(10);
-		_delay_ms(100);
+		// wait for not pressed
+		bounce_counter = bounce;
+		while (bounce_counter > 0) {
+			if (!(PIND & 0x4)) {
+				if (bounce_counter < bounce)
+					bounce_counter++;
+			}
+			else {
+				if (bounce_counter > 0)
+					bounce_counter--;
+			}
+			_delay_ms(delay);
+		}
+		// add additional wait
+		for (bounce_counter=0;bounce_counter<wait;bounce_counter++) {
+			_delay_ms(delay);
+		}
+		// output image
 		imageindex = 0;
 	}
 }
