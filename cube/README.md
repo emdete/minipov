@@ -1,9 +1,5 @@
 # Cube
 
-[Adafruit minipov3 design](https://learn.adafruit.com/minipov3/design)
-
-[Adafruit minipov3 software](https://learn.adafruit.com/minipov3/software)
-
 [Cornfieldelectronics projects](http://cornfieldelectronics.com/cfe/projects.php)
 
 [Cornfieldelectronics LEDcube instructions](http://cornfieldelectronics.com/cfe/projects/ledcube/LEDcube_instructions.php)

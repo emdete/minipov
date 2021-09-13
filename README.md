@@ -7,6 +7,10 @@ peace of hardware.
 Fine instructions can be found at
 [Instructables](https://www.instructables.com/MiniPOV3-Kit/).
 
+[Adafruit minipov3 design](https://learn.adafruit.com/minipov3/design)
+
+[Adafruit minipov3 software](https://learn.adafruit.com/minipov3/software)
+
 ## Base
 
 Base information can be found on the original wiki at
