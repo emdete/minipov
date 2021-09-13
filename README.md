@@ -12,7 +12,7 @@ Fine instructions can be found at
 Base information can be found on the original wiki at
 [adafruit](https://learn.adafruit.com/minipov3).
 
-![Diagram](media/adafruit_products_minipov3schem.png)
+![Diagram](documentation/adafruit_products_minipov3schem.png)
 
 The nice thing about the device is the fact that you can program the CPU with
 just a RS232 provided by older PCs out of the box or with an USB converter. It
