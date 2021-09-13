@@ -5,4 +5,5 @@
 *.elf
 *.eep
 *.o
+text.h
 gen_pov

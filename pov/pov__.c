@@ -32,7 +32,7 @@ void delay_ms( uint16_t milliseconds)
 
 // store all the image data in program memory (ROM)
 // instead of RAM (the default)
-#include "gen.h"
+#include "../text.h"
 
 // special pointer for reading from ROM memory
 const uint8_t* const largeimage_p PROGMEM = large_image;

@@ -1,19 +1,17 @@
 #!/usr/bin/env make -f
 .PHONY: all clean
-TARGET=pov_sensor_num
 
-all:
-	make TARGET=$(TARGET) -f avr.mk $@
+all: text.h
 
 clean:
-	make TARGET=$(TARGET) -f avr.mk $@
+	$(foreach dir,$(dir $(wildcard */Makefile)),make -C $(dir) $@; )
 
 dbg:
 	$(foreach remote,$(shell git remote),$(shell git push $(remote)))
 
 # generate text header
-gen.h: gen_pov
-	./gen_pov $(TEXT) | tee gen.h
+text.h: gen_pov
+	./gen_pov $(TEXT) | tee text.h
 
 # compile generator
 gen_pov: gen_pov.c
