@@ -30,3 +30,7 @@ number into the air.
 
 So now i know a cycle uses `13 * 10ms`.
 
+## Mirror
+
+![Rotating mirror](../media/2021-09-02-13-17-23-0004.sized.jpg)
+
