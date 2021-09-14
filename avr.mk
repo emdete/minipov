@@ -43,9 +43,7 @@ LDFLAGS = -Wl,-Map=$(TARGET).map,--cref
 # Programming support using avrdude.
 AVRDUDE = avrdude
 # Programming support using avrdude. Settings and variables.
-AVRDUDE_WRITE_FLASH = -U flash:w:
-AVRDUDE_WRITE_EEPROM = -U eeprom:w:
-AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -i $(AVRDUDE_TIMING)
+AVRDUDE_FLAGS = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER) -i $(AVRDUDE_TIMING) -V
 # Define programs and commands.
 CC = avr-gcc
 OBJCOPY = avr-objcopy
@@ -96,10 +94,10 @@ burn-fuse:
 
 # this programs the dependant hex file using our default avrdude flags
 program-%:
-	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH)$<
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -e -U flash:w:$<:i
 
 eeprom-%:
-	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_EEPROM)$<
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -U eeprom:w:$<:i
 
 # Display compiler version information.
 gccversion:

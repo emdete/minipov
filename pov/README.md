@@ -27,6 +27,7 @@ Finally we used a reed contact and a small magnet in a tube.
 This works incredible fine.
 
 - `pov_sensor.c` prints text from `../text.h` on sensor open
+- `pov_sensorv.c` prints directly from a char[] utilizing a font in rom
 
 ![IMG](../media/2021-09-05-22-16-34-0007.sized.jpg)
 
