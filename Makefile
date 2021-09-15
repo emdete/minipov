@@ -4,6 +4,11 @@ TEXT="FREE SOFTWARE"
 
 all: text.h
 
+run: test
+	./test
+
+test: test.c
+
 clean:
 	$(foreach dir,$(dir $(wildcard */Makefile)),make -C $(dir) $@; )
 
