@@ -3,6 +3,7 @@
 #include <avr/pgmspace.h>
 #include <avr/eeprom.h>
 #include <util/delay.h>
+#include "font_5x8.h"
 #define countof(x) (sizeof (x) / sizeof (*(x)))
 
 #define TIMER1_PRESCALE_1 1
@@ -11,295 +12,46 @@
 #define TIMER1_PRESCALE_256 4
 #define TIMER1_PRESCALE_1024 5
 
-static const uint8_t const font_5x8[] PROGMEM = {
-	0b01111110,
-	0b10100001,
-	0b10011001,
-	0b10000101,
-	0b01111110, //0
-
-	0b00000000,
-	0b10000010,
-	0b11111111,
-	0b10000000,
-	0b00000000, //1
-
-	0b10000010,
-	0b11000001,
-	0b10100001,
-	0b10010001,
-	0b10001110, //2
-
-	0b01000010,
-	0b10000001,
-	0b10001001,
-	0b10001001,
-	0b01110110, //3
-
-	0b00011000,
-	0b00010100,
-	0b00010010,
-	0b11111111,
-	0b00010000, //4
-
-	0b01001111,
-	0b10001001,
-	0b10001001,
-	0b10001001,
-	0b01110001, //5
-
-	0b01111110,
-	0b10001001,
-	0b10001001,
-	0b10001001,
-	0b01110010, //6
-
-	0b00000001,
-	0b11000001,
-	0b00110001,
-	0b00001101,
-	0b00000011, //7
-
-	0b01110110,
-	0b10001001,
-	0b10001001,
-	0b10001001,
-	0b01110110, //8
-
-	0b01000110,
-	0b10001001,
-	0b10001001,
-	0b10001001,
-	0b01111110, //9
-
-	0b11111110,
-	0b00001001,
-	0b00001001,
-	0b00001001,
-	0b11111110, //A
-
-	0b11111111,
-	0b10001001,
-	0b10001001,
-	0b10001001,
-	0b01110110, //B
-
-	0b01111110,
-	0b10000001,
-	0b10000001,
-	0b10000001,
-	0b01000010, //C
-
-	0b11111111,
-	0b10000001,
-	0b10000001,
-	0b10000001,
-	0b01111110, //D
-
-	0b11111111,
-	0b10001001,
-	0b10001001,
-	0b10001001,
-	0b10000001, //E
-
-	0b11111111,
-	0b00001001,
-	0b00001001,
-	0b00001001,
-	0b00000001, //F
-
-	0b01111110,
-	0b10000001,
-	0b10000001,
-	0b10010001,
-	0b11110010, //G
-
-	0b11111111,
-	0b00001000,
-	0b00001000,
-	0b00001000,
-	0b11111111, //H
-
-	0b00000000,
-	0b10000001,
-	0b11111111,
-	0b10000001,
-	0b00000000, //I
-
-	0b01100000,
-	0b10000000,
-	0b10000001,
-	0b01111111,
-	0b00000000, //J
-
-	0b11111111,
-	0b00001000,
-	0b00010100,
-	0b00100010,
-	0b11000001, //K
-
-	0b11111111,
-	0b10000000,
-	0b10000000,
-	0b10000000,
-	0b10000000, //L
-
-	0b11111111,
-	0b00000110,
-	0b00111000,
-	0b00000110,
-	0b11111111, //M
-
-	0b11111111,
-	0b00000110,
-	0b00011000,
-	0b01100000,
-	0b11111111, //N
-
-	0b01111110,
-	0b10000001,
-	0b10000001,
-	0b10000001,
-	0b01111110, //O
-
-	0b11111111,
-	0b00001001,
-	0b00001001,
-	0b00001001,
-	0b00000110, //P
-
-	0b01111110,
-	0b10000001,
-	0b10100001,
-	0b01000001,
-	0b10111110, //Q
-
-	0b11111111,
-	0b00001001,
-	0b00001001,
-	0b00011001,
-	0b11100110, //R
-
-	0b01000110,
-	0b10001001,
-	0b10001001,
-	0b10001001,
-	0b01110010, //S
-
-	0b00000001,
-	0b00000001,
-	0b11111111,
-	0b00000001,
-	0b00000001, //T
-
-	0b01111111,
-	0b10000000,
-	0b10000000,
-	0b10000000,
-	0b01111111, //U
-
-	0b00011111,
-	0b01100000,
-	0b10000000,
-	0b01100000,
-	0b00011111, //V
-
-	0b11111111,
-	0b01100000,
-	0b00011100,
-	0b01100000,
-	0b11111111, //W
-
-	0b11000011,
-	0b00110100,
-	0b00001000,
-	0b00110100,
-	0b11000011, //X
-
-	0b00000011,
-	0b00001100,
-	0b11110000,
-	0b00001100,
-	0b00000011, //Y
-
-	0b11000001,
-	0b10100001,
-	0b10011001,
-	0b10000101,
-	0b10000011, //Z
-
-	0b00000000,
-	0b00000000,
-	0b00000000,
-	0b00000000,
-	0b00000000, //blank
-
-	0b11111111,
-	0b10000001,
-	0b10000001,
-	0b10000001,
-	0b11111111, //unknown
-	};
-#define font_width 5
-#define font_widthw (font_width+1)
-static uint8_t text[17] = "BELPHEGOR       ";
-uint8_t ee_text[][17] EEMEM = {
-	"FREE SOFTWARE   ",
-	};
+// wait delay
+#define delay 5
+// number of bounces ignored
+#define bounce 4
+// additional wait before starte
+#define wait 6
+// ram array for the current text
+uint8_t text[17];
+// size of a pattern for a text
 #define patternsize ((sizeof(text)-1)*font_widthw)
-static uint8_t patternindex = patternsize;
+// eeprom array of texts to display
+uint8_t ee_text[][sizeof(text)] EEMEM = {
+	"The sun shone,  ",
+	"having no       ",
+	"alternative, on ",
+	"the nothing new.",
+	};
+// eeprom count of texts in the array
+uint8_t ee_text_count EEMEM = countof(ee_text);
+// current index into the pattern to display
+uint8_t patternindex = patternsize;
 
 // this function is called when timer1 compare matches OCR1A
 SIGNAL( TIMER1_COMPA_vect ) {
+	uint8_t pattern = 0;
 	if (patternindex < patternsize) {
-		if (patternindex % font_widthw < font_width) {
-			// font is 0-9 A-Z
-			//uint8_t c = pgm_read_byte(text + patternindex / font_widthw);
-			uint8_t c = text[patternindex / font_widthw];
-			uint16_t patterni = 0;
-			if (c>='0' && c<='9') {
-				patterni += c - '0';
-			}
-			else {
-				patterni += 10;
-				if (c>='A' && c<='Z') {
-					patterni += c - 'A';
-				}
-				else if (c>='a' && c<='z') {
-					patterni += c - 'a';
-				}
-				else {
-					patterni += 26;
-					if (c==' ') {
-						;
-					}
-					else {
-						patterni++;
-					}
-				}
-			}
-			patterni *= font_width;
-			patterni += patternindex % font_widthw;
-			PORTB = pgm_read_byte(font_5x8 + patterni);
-		}
-		else {
-			PORTB = 0b00000000;
+		const void const* p = font_pattern(text[patternindex / font_widthw], patternindex % font_widthw);
+		//pgm_read_byte(text + patternindex / font_widthw);
+		if (p) {
+			pattern = pgm_read_byte(p);
 		}
 		patternindex++;
 	}
-	else {
-		PORTB = 0;
-	}
+	PORTB = pattern;
 }
 
 int main(void) {
-	eeprom_read_block(text, ee_text[0], sizeof(text));
-// wait delay
-#	define delay 5
-// number of bounces ignored
-#	define bounce 5
-// additional wait before starte
-#	define wait 3
+	uint8_t text_index = 0;
+	uint8_t text_repeat = 3;
+	eeprom_read_block(text, (void*)ee_text[text_index], sizeof(text));
 
 	DDRB = 0xFF; // set all 8 pins on port B to outputs
 	PORTB = 0; // set all pins off
@@ -363,7 +115,14 @@ int main(void) {
 		for (bounce_counter=0;bounce_counter<wait;bounce_counter++) {
 			_delay_ms(delay);
 		}
+		cli(); // Clear Enable Interrupts
 		// output pattern
+		if (!text_repeat--) {
+			text_index = (text_index+1) % 4;//eeprom_read_byte((void*)&ee_text_count);
+			eeprom_read_block(text, (void*)ee_text[text_index], sizeof(text));
+			text_repeat = 3;
+		}
 		patternindex = 0;
+		sei(); // Set Enable Interrupts
 	}
 }
