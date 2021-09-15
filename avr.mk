@@ -79,7 +79,7 @@ ALL_ASFLAGS = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
 	$(CC) -c $(ALL_ASFLAGS) $< -o $@
 
 # Default target.
-all: eeprom-$(TARGET) program-$(TARGET)
+all: program-$(TARGET) eeprom-$(TARGET)
 
 # flash target program
 program-$(TARGET): $(TARGET).hex
