@@ -7,7 +7,7 @@ all: gen_pov
 	./gen_pov $(TEXT) | tee text.h |sed 's/0b//'| tr 0,1 \ \ X
 
 run: test
-	./test | tee font_8x8.h
+	./test
 
 clean:
 	$(foreach dir,$(dir $(wildcard */Makefile)),make -C $(dir) $@; )
