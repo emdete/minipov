@@ -9,13 +9,9 @@ All code using this original functionality of the minipov are named `pov_*.c`.
 
 To generate an textline for `pov__.c` the programm `../gen_pov.c` is provided.
 
-- `pov_digg.c` prints "digg"
-- `pov_eyebeam.c` prints "eyebeam"
-- `pov_i_love_make.c` prints "i love make"
-- `pov_large.c` prints "sxsw"
-- `pov_make.c` prints "make"
-- `pov_minipov.c` prints "minipov"
-- `pov__.c` prints text from `../text.h`
+- `*.h` contains the text as pattern like "digg", "eyebeam", "i love make",
+  "sxsw", "make" or "minipov"
+- `text.c` prints text from the header, use `../gen_pov.c` to generate new texts
 
 ## POV with sensor
 
@@ -26,8 +22,10 @@ with no success.
 Finally we used a reed contact and a small magnet in a tube.
 This works incredible fine.
 
-- `pov_sensor.c` prints text from `../text.h` on sensor open
-- `pov_sensorv.c` prints directly from a char[] utilizing a font in rom
+- `sensor.c` prints text from `../text.h` on sensor open, i use a reed contact
+  and a magnet as a sensor
+- `various.c` prints directly from a char[] utilizing a font in rom, it puts
+  the texts into eeprom and has different lines to output
 
 ![IMG](../media/2021-09-05-22-16-34-0007.sized.jpg)
 
@@ -35,6 +33,8 @@ This works incredible fine.
 
 The orignal code snippets had various methods implementing the animation.
 
-- It utilized a macro `B8` because older compilers did not support the `0b`-prefix.
-- It either used `_delay_ms(1);` in a loop to output the pattern or used a timer interrupt to do so
+- It utilized a macro `B8` because older compilers did not support the
+  `0b`-prefix.
+- It either used `_delay_ms(1);` in a loop to output the pattern or used a
+  timer interrupt to do so
 

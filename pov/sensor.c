@@ -2,6 +2,7 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <util/delay.h>
+#define countof(x) (sizeof (x) / sizeof (*(x)))
 
 #define TIMER1_PRESCALE_1 1
 #define TIMER1_PRESCALE_8 2
@@ -11,10 +12,15 @@
 
 // store all the image data in program memory (ROM)
 // instead of RAM (the default)
-#include "../text.h"
+#include "free_software.h"
 
-#define NUM_ELEM(x) (sizeof (x) / sizeof (*(x)))
-#define imagesize NUM_ELEM(large_image)
+#define imagesize countof(large_image)
+// wait delay
+#define delay 5
+// number of bounces ignored
+#define bounce 5
+// additional wait before starte
+#define wait 3
 
 uint8_t imageindex = imagesize;
 
@@ -31,12 +37,6 @@ SIGNAL( TIMER1_COMPA_vect ) {
 }
 
 int main(void) {
-// wait delay
-#	define delay 5
-// number of bounces ignored
-#	define bounce 5
-// additional wait before starte
-#	define wait 3
 
 	DDRB = 0xFF; // set all 8 pins on port B to outputs
 	PORTB = 0; // set all pins off

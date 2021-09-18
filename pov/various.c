@@ -4,7 +4,7 @@
 #include <avr/eeprom.h>
 #include <util/delay.h>
 #include "font_5x8.h"
-#define countof(x) (sizeof (x) / sizeof (*(x)))
+#define countof(x) (sizeof(x) / sizeof(*(x)))
 
 #define TIMER1_PRESCALE_1 1
 #define TIMER1_PRESCALE_8 2

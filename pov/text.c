@@ -2,7 +2,7 @@
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <util/delay.h>
-#define countof(x) (sizeof (x) / sizeof (*(x)))
+#define countof(x) (sizeof(x) / sizeof(*(x)))
 
 // _delay_ms doesnt support variable milliseconds so we wrap it
 void delay_ms( uint16_t milliseconds) {
