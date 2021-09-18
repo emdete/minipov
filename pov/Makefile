@@ -1,6 +1,6 @@
 #!/usr/bin/env make -f
 .PHONY: all clean
-TARGET=pov_sensorv
+TARGET=text
 
 all:
 	make TARGET=$(TARGET) -f ../avr.mk $@
