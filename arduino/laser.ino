@@ -25,13 +25,16 @@ static volatile uint8_t * out;
 
 static void debug_pins() {
 	uint8_t last = -1;
-	for (pin=0;pin<22;pin++) {
+	Serial.println();
+	for (pin=0;pin<32;pin++) {
+		Serial.print(", pin="); Serial.print((int)pin);
 		uint8_t port = digitalPinToPort(pin);
 		if (port != last) {
 			volatile uint8_t * out = portOutputRegister(port);
 			volatile uint8_t * reg = portModeRegister(port);
-			Serial.print((int)reg);Serial.println("<reg");
-			Serial.print((int)out);Serial.println("<out");
+			Serial.print(", reg=0x"); Serial.print((int)reg, 16);
+			Serial.print(", out=0x"); Serial.print((int)out, 16);
+			Serial.println();
 			last = port;
 		}
 	}

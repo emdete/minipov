@@ -1,4 +1,4 @@
-# POV
+# Persistence of Vision
 
 ## POV with dump pattern loop
 
@@ -24,10 +24,22 @@ This works incredible fine.
 
 - `sensor.c` prints text from `../text.h` on sensor open, i use a reed contact
   and a magnet as a sensor
-- `various.c` prints directly from a char[] utilizing a font in rom, it puts
-  the texts into eeprom and has different lines to output
 
 ![IMG](../media/2021-09-05-22-16-34-0007.sized.jpg)
+
+## POV with sensor and text from EEPROM
+
+We can put a whole font into the ROM and render the pattern from it, so we just
+have ASCII text lines.
+
+If we have several lines we can change the display after a while and alternate
+through the lines in an array.
+
+To update the text we can put it into EEPROM which can be written separately to
+speed up the process (and spec says EEPROM can be written more often that the flash).
+
+- `various.c` prints directly from a char[] utilizing a font in rom, it puts
+  the texts into EEPROM and has different lines to output
 
 ## Remarks
 

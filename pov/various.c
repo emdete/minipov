@@ -21,7 +21,7 @@
 // ram array for the current text
 uint8_t text[17];
 // size of a pattern for a text
-#define patternsize ((sizeof(text)-1)*font_widthw)
+#define patternsize ((sizeof(text)-1)*font_width)
 // eeprom array of texts to display
 uint8_t ee_text[][sizeof(text)] EEMEM = {
 	"The sun shone,  ",
@@ -38,8 +38,8 @@ uint8_t patternindex = patternsize;
 SIGNAL( TIMER1_COMPA_vect ) {
 	uint8_t pattern = 0;
 	if (patternindex < patternsize) {
-		const void const* p = font_pattern(text[patternindex / font_widthw], patternindex % font_widthw);
-		//pgm_read_byte(text + patternindex / font_widthw);
+		const void const* p = font_pattern(text[patternindex / font_width], patternindex % font_width);
+		//pgm_read_byte(text + patternindex / font_width);
 		if (p) {
 			pattern = pgm_read_byte(p);
 		}
@@ -118,7 +118,7 @@ int main(void) {
 		cli(); // Clear Enable Interrupts
 		// output pattern
 		if (!text_repeat--) {
-			text_index = (text_index+1) % 4;//eeprom_read_byte((void*)&ee_text_count);
+			text_index = (text_index+1) % eeprom_read_byte((void*)&ee_text_count);
 			eeprom_read_block(text, (void*)ee_text[text_index], sizeof(text));
 			text_repeat = 3;
 		}

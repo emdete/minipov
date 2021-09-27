@@ -3,13 +3,12 @@
 ## Idea
 
 The idea for this project is quite old (around 20y) when i was programming a
-c504 processor. Later i found the minipov3 (around 5y ago) and now i started to
+c504 processor. Back then i thought that one could use 8 laser pointers and a
+turning mirror to write sentences on the wall. I never implemented that idea
+but had 10 laserpointers laying around.
+
+Later i found the minipov3 (around 5y ago) and now i started to
 program the attiny and found that both projects have alot in common.
-
-Back then i thought that one could use 8 laser pointers and a turning mirror to
-write sentences on the wall. I never implemented that idea but had 10
-laserpointers laying around.
-
 When i started to play around with the minipov i discovered that this was the
 same idea with LEDs and my arm instead of the turning mirror. So i started to
 implement that old idea based on minipov's attiny.
